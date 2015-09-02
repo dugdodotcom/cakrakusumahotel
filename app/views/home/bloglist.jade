@@ -1,0 +1,24 @@
+extends ../layouts/index
+
+block content  
+  #page-header
+    .container
+      .col-md-12
+        h1 BLOG
+  #content2.container
+    .col-md-8
+      .content-page(style="padding-bottom:20px")        
+        ul.blog-list
+          each blog in blogs
+            li
+              a(href="/index.php/blog/"+blog.url,title=blog.title)
+                img(src="/img/regular/"+blog.image)
+              h4
+                a(href="/index.php/blog/"+blog.url,title=blog.title)= blog.title
+              .blog-meta By <a href="#" title="Posts by Admin" rel="author">Admin</a> / !{blog.created} / <a href="/index.php/blog/!{blog.url}/#comments" title="Comment on !{blog._id.title}">!{blog.count} Comments</a>
+              p !{blog.limit}...
+              a(href="/index.php/blog/"+blog.url,title=blog.title)
+                button.btn.btn-default Read More
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+      

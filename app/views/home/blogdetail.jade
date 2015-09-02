@@ -1,0 +1,42 @@
+extends ../layouts/index
+
+block content  
+  #page-header
+    .container
+      .col-md-12
+        h1= blog.title
+  #content1.container
+    .col-md-8
+      .content-page(style="padding-bottom:20px")        
+          img(src="/img/regular/"+blog.image)
+          .blog-meta By <a href="#" title="Posts by Admin" rel="author">Admin</a> / !{blog.created} / <a href="/index.php/blog/!{url}/#comments" title="Comment on !{title}">!{blog.count} Comments</a>
+          p !{blog.content}
+          #comment
+            ul.comment-list
+              each comment in blog.comments
+                li.row
+                  .col-md-3
+                    img.img-thumbnail.img-circle(src="/img/profile/1.jpg",alt="profile")
+                  .col-md-9
+                    p
+                      !{comment.name}
+                      span !{comment.created}
+                    p !{comment.comment}
+            form(method="post",action="/blogcomment")
+              .form-group
+                label Name*
+                input.form-control(type="text",name='name', placeholder='Name',required)
+              .form-group
+                label Email*
+                input.form-control(type='email',name='email', placeholder='Email',required)
+              .form-group
+                label Website
+                input.form-control(type='text',name='website', placeholder='Website')
+              .form-group
+                label Comment*
+                textarea.form-control(name='comment', placeholder='Comment')
+              .form-group
+                button.btn.btn-default(type='submit') Submit
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+      

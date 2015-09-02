@@ -1,0 +1,14 @@
+extends ../layouts/index
+
+block content  
+  #page-header
+    .container
+      .col-md-12
+        h1(style="text-transform: uppercase;")=title
+  #content1.container
+    .col-md-8
+      .content-page
+      !{content}
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+      

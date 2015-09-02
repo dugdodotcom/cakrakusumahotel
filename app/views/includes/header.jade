@@ -1,0 +1,115 @@
+#top-header
+  .container
+    .col-md-12
+      .map
+    .col-md-12
+      .topheader-right.pull-right
+        ul.contactinfo
+          li
+            i.fa.fa-phone  
+            a(href="tel:+62274588066") +62 274 588066
+          li
+            i.fa.fa-envelope
+            a(href="sms:+62274588066") +62 274 588066
+          li
+            if (req.isAuthenticated())
+              li
+                a(href="/users/"+req.user.id, title="Profile") Profile
+              li
+                a(href="/signout", title="logout") Logout
+            else
+              li
+                a(href="/signin") Login/Register
+          li
+            a.booknow(href="https://booknpay.net/srs/srs_availability.php?hid=U1JTMDAxNTI,") Book Now
+#bottom-header
+  .container
+    .col-md-12
+      #logo.pull-left(style="position:relative")
+        a.gmapbutton(href="javascript:openmap()")    
+            span.fa-stack.fa-2x
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-map-marker.fa-stack-1x.fa-inverse
+        a(href="/")
+          img(src="/img/cakra-kusuma-hotel.png",alt="cakra kusuma hotel")
+      #navbar.pull-right
+        nav.navbar
+          .navbar-header
+            label
+              button.navbar-toggle(type="button",data-toggle="collapse",data-target="#collapse1")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+                
+          #collapse1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li.dropdown(class=id=='home'?'active':undefined)
+                a(href="/")
+                  strong HOME
+                    span welcome
+                ul.dropdown-menu
+                  li
+                    a(href="/index.php/home/fact-sheet") Fact Sheet
+                  li.dropdown-sub
+                    a(href,target="_self") Accommodation
+                    ul
+                      li
+                        a(href="/index.php/home/accomodation/rooms-a-suites") Rooms & Suites
+                      li
+                        a(href="/index.php/home/accomodation/guest-services") Guest Services
+                  li
+                    a(href="/index.php/home/guestbook/1") Guestbook
+                  li
+                    a(href="/index.php/home/jogja-map") Jogja Map
+                  li
+                    a(href="/index.php/photo-gallery") Photo Gallery
+                  li
+                    a(href="/index.php/home/e-brochure") E-Brochure
+                  li
+                    a(href="/sitemap.xml") Sitemap                  
+              li.dropdown
+                //a.dropdown-toggle(href="/index.php/")
+                a.dropdown-toggle(href="https://booknpay.net/srs/srs_availability.php?hid=U1JTMDAxNTI,")
+                  strong RESERVATIONS
+                    span book now
+                ul.dropdown-menu
+                  li
+                    a(href="/index.php/reservations/publish-rate") Publish Rate
+              li.dropdown(class=id=='facilities'?'active':undefined)         
+                a.dropdown-toggle(href="/index.php/facilities/facilities")
+                  strong FACILITIES
+                    span keep fun
+                ul.dropdown-menu
+                  li
+                    a(href="/index.php/facilities/restaurant-a-bars") Restaurant & Bars
+              li.dropdown(class=id=='package'?'active':undefined)              
+                a.dropdown-toggle
+                  strong PACKAGE
+                    span by your style
+                ul.dropdown-menu
+                  li
+                    a(href="/index.php/package/mice") M.I.C.E
+                  li
+                    a(href="/index.php/package/leisures") Leisures
+                  li
+                    a(href="/index.php/package/specials-a-offers") Specials & Offers
+              li
+                a(href="/index.php/blog",class=id=='blog'?'active':undefined)
+                  strong BLOG
+                    span latest news
+              li
+                a(href="/index.php/career/career")
+                  strong CAREER
+                    span join us
+              li.dropdown              
+                a.dropdown-toggle(href="#",data-toggle="dropdown",class=id=='about-us'?'active':undefined)
+                  strong ABOUT US
+                    span about us
+                ul.dropdown-menu
+                  li
+                    a(href="/index.php/contact-us") Contact Us
+                  li
+                    a(href="/index.php/contact/about-us") About Us
+                  li
+                    a(href="/index.php/testimonials") Testimonial

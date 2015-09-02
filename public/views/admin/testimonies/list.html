@@ -1,0 +1,32 @@
+<section data-ng-controller="TestimoniesController" data-ng-init="find()">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>about</th>
+        <th>location</th>
+        <th>website</th>
+        <th>comment</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="testimoni in testimonies">
+        <td>{{testimoni.name}}</td>
+        <td>{{testimoni.email}}</td>
+        <td>{{testimoni.about}}</td>
+        <td>{{testimoni.location}}</td>
+        <td>{{testimoni.website}}</td>
+        <td>{{testimoni.comment}}</td>
+        <td><a class="btn" href="#!/testimonies/{{testimoni._id}}/edit">
+        	<i class="fa fa-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(testimoni._id,$index)">
+            <i class="fa fa-trash-o"></i>
+        </a>
+        <form ng-submit="action(testimoni._id,testimoni.active,$index)"><button type="submit" class="btn btn-success" ng-show="testimoni.active==1">active</button><button type="submit" class="btn btn-warning" ng-show="testimoni.active==0">Inactive</button></form>
+      </tr>      
+    </tbody>
+  </table>	
+</section>

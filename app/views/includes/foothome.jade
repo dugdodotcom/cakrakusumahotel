@@ -1,0 +1,99 @@
+#footer
+  .container
+    .row
+      .col-md-4
+        h4 GALLERY
+        ul.gallerylist
+        .clearfix
+      .col-md-4.fblike
+        h4 RECOMMEND US
+        .fb-like(data-href="https://www.facebook.com/cakrakusumahotel",data-layout="standard",data-action="recommend",data-show-faces="true",data-colorscheme="dark",data-share="true")
+      .col-md-4
+        h4 SOCIAL MEDIA
+        .socmed
+          a(href="https://www.facebook.com/cakrakusumahotel")
+            span.fa-stack.fa-lg
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-facebook.fa-stack-1x.fa-inverse
+          a(href="https://www.twitter.com/cakrakusuma_25")
+            span.fa-stack.fa-lg
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-twitter.fa-stack-1x.fa-inverse
+          a(href="#")
+            span.fa-stack.fa-lg
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-pinterest.fa-stack-1x.fa-inverse
+          a(href="#")
+            span.fa-stack.fa-lg
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-google-plus.fa-stack-1x.fa-inverse
+          a(href="#")
+            span.fa-stack.fa-lg
+              i.fa.fa-circle.fa-stack-2x
+              i.fa.fa-linkedin.fa-stack-1x.fa-inverse
+script.
+  $(window).load(function(){
+        fbcomment();
+        $.getJSON('/galleriessee',function(dat){
+            var mn='';
+            $.each(dat,function(i,data){
+              mn+='<li><a href="javascript:gallerysee(\''+data.image+'\')"><img src="/img/thumbs/'+data.image+'" alt="'+data.alt+'" width="75" height="75" /></a></li>';
+            });
+            $('.gallerylist').html(mn);
+        })
+    });
+    function gallerysee(img){
+      $('#myModal').modal('toggle');
+      $('h4#myModalLabel.modal-title').html("Gallery Detail");
+      $('.modal-body').html('<img class="col-md-12" src="/img/gallery/'+img+'" />');
+      $('.modal-footer').html(" ");
+    }
+    function fbcomment(){
+        var deswidth=$('.fblike').width()-10;
+        $('.fb-like').attr('data-width',deswidth);
+        $('.fb-like iframe').css('width',deswidth);
+        var mapwidth=$('.map').width()-10;
+        $('.map iframe').css('width',mapwidth);
+    }
+    $(window).resize(function() {
+        fbcomment();
+    })
+    $('a.gmapbutton').hover(function(){
+        if($(this).hasClass('active')){
+            $(this).find('.fa-map-marker').removeClass('fa-rotate-180');
+        }else{
+            $(this).find('.fa-map-marker').addClass('fa-rotate-180');
+        }
+    },function(){
+        if($(this).hasClass('active')){
+            $(this).find('.fa-map-marker').addClass('fa-rotate-180');
+        }else{
+            $(this).find('.fa-map-marker').removeClass('fa-rotate-180');
+        }
+    });
+    $('a.gmapbutton').click(function(){
+        if($(this).hasClass('active')){
+            $(this).find('.fa-map-marker').removeClass('fa-rotate-180');
+            $(this).removeClass('active');
+        }else{
+            $(this).addClass('active');
+            $(this).find('.fa-map-marker').addClass('fa-rotate-180');
+        }
+    });
+    $('.dropdown').hover(function() {
+        $(this).addClass('open');
+    }, function() {
+        $(this).removeClass('open');
+    });
+    $('.dropdown-sub').hover(function() {
+        $(this).addClass('open');
+    }, function() {
+        $(this).removeClass('open');
+    });
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48477301-1', 'cakrakusumahotel.com');
+  ga('send', 'pageview');

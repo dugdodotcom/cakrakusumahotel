@@ -1,0 +1,79 @@
+<section data-ng-controller="IndexController">
+  <div id="page-header">
+    <div class="container">
+      <div class="col-md-12">
+        <h1>Reservation: Confirmation</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <section  data-ng-include="'/views/booking/breadcrumb.html'" data-role="navigation"></section>
+    <div id="content" class="row">
+      <div class="col-md-12 rooms">
+        <h4>Reservation Complete</h4>
+        <p style="color:#fff">This is detail of your reservation:</p>
+        <table class="table table-striped" data-ng-init="ticket()" style="background-color:#fff">
+          <thead>
+            <tr>        
+              <th>Image</th>
+              <th>Name</th>
+              <th>Occupancy</th>
+              <th>Size</th>
+              <th>View</th>
+              <th>type</th>
+              <th>price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="ticket in tickets.data.bookings" class="ng-scope">
+              <td><img ng-src="/img/thumbs/{{ticket.roomsId.image}}"></td>
+              <td>{{ticket.roomsId.name}}</td>
+              <td>{{ticket.roomsId.occupancy}}</td>
+              <td>{{ticket.roomsId.size}}</td>
+              <td>{{ticket.roomsId.view}}</td>
+              <td>{{ticket.type}}</td>
+              <td>IDR {{ticket.roomsId.prices}} per night</td>
+            </tr>
+            <tr>
+              <td colspan="6">
+                <strong>Total Price per night :</strong>
+              </td>
+              <td>
+                <strong>IDR {{tickets.price}} per night</strong>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="6">
+                <strong>Nights :</strong>
+              </td>
+              <td>
+                <strong>{{tickets.day}} nights</strong>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="6">
+                <strong>Total Price :</strong>
+              </td>
+              <td>
+                <strong>IDR {{tickets.total}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">
+                From {{tickets.start}} to {{tickets.end}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">
+                Special request {{tickets.data.specialrequest}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="transfer-info">
+          <p style="color:#fff" ng-bind-html="priceca.transfer"></p>
+        </div>
+      </div>
+    </div>        
+	</div>
+</section>

@@ -1,0 +1,51 @@
+extends ../layouts/index
+
+block content            
+  #page-header
+    .container
+      .col-md-12
+        h1 TESTIMONIALS
+  #content1.container
+    .col-md-8
+      a(href="#submitform") Submit a Testimonial
+      each data in datas
+        .testimoniallist.row
+          .col-md-12
+            p !{data.comment}
+            p !{data.firstname} !{data.lastname}<br />!{data.about}<br />-!{data.created}<br />!{data.website}<br />!{data.location}
+      #submitform
+        h4 Submit A Testimonial
+        p * fields are mandatory.
+        form.form-horizontal(role='form', method='post',action='/testimonialpost')
+          input(type="hidden",name="url")
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Your Fullname:*
+            .col-sm-10
+              input#inputEmail3.form-control(type='text', placeholder='Full Name', name='name',required)
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Email Address:*
+            .col-sm-10
+              input#inputEmail3.form-control(type='text', placeholder='Email Address', name='email',required)
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') About You:
+            .col-sm-10
+              input#inputEmail3.form-control(type='text', placeholder='About You', name='about')
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Your Location:
+            .col-sm-10
+              input#inputEmail3.form-control(type='text', placeholder='Your Location', name='location')
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Your Website:
+            .col-sm-10
+              input#inputEmail3.form-control(type='text', placeholder='Your Website', name='website')
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Send us your comments below:
+            .col-sm-10
+              textarea.form-control(placeholder='Send us your comments below', name='comment',required)
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              button.btn.btn-success(type='submit') Submit Testimonial
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+  script.
+    $('input[name="url"]').val(document.URL);

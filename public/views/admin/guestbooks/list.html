@@ -1,0 +1,28 @@
+<section data-ng-controller="GuestbooksController" data-ng-init="find()">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>title</th>
+        <th>content</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="guestbook in guestbooks">
+        <td>{{guestbook.name}}</td>
+        <td>{{guestbook.email}}</td>
+        <td>{{guestbook.title}}</td>
+        <td>{{guestbook.content}}</td>
+        <td><a class="btn" href="#!/guestbooks/{{guestbook._id}}/edit">
+        	<i class="fa fa-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(guestbook._id,$index)">
+            <i class="fa fa-trash-o"></i>
+        </a>
+        <form ng-submit="action(guestbook._id,guestbook.active,$index)"><button type="submit" class="btn btn-success" ng-show="guestbook.active==1">active</button><button type="submit" class="btn btn-warning" ng-show="guestbook.active==0">Inactive</button></form>
+      </tr>      
+    </tbody>
+  </table>	
+</section>

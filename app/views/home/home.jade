@@ -1,0 +1,104 @@
+extends ../layouts/index
+
+block content  
+  script(type='text/javascript', src='/lib/moment/min/moment.min.js')
+  script(type='text/javascript', src='/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  div(style="position:relative")
+   .container#reservation      
+      //form.reserv(action="/reservationpost",method="get")
+      form.reserv(action="https://booknpay.net/srs/srs_availability.php?hid=U1JTMDAxNTI,",method="get")
+        input(type="hidden",name="hid",value="U1JTMDAxNTI,")
+        .reservation-box.col-md-9.col-sm-12
+          .row
+            .col-sm-3
+              .form-group
+                .input-group.date#datetimepicker1
+                  //input.form-control(type="text",name="start",readonly="readonly")
+                  input.form-control(type="text",name="tgl_a",readonly="readonly",data-date-format="YYYY-MM-DD")
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-calendar
+            .col-sm-3
+              .form-group
+                .input-group.date#datetimepicker2
+                  //input.form-control(type="text",name="end",readonly="readonly")
+                  input.form-control(type="text",name="tgl_b",readonly="readonly",data-date-format="YYYY-MM-DD")
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-calendar
+            .col-sm-3
+              select.form-control(name="adult")
+                option(value="0") Adults              
+                option(value="1") 1
+                option(value="2") 2
+                option(value="3") 3
+                option(value="4") 4
+                option(value="5") 5
+            .col-sm-3
+              select.form-control(name="children")
+                option(value="0") Children             
+                option(value="1") 1
+                option(value="2") 2
+                option(value="3") 3
+                option(value="4") 4
+                option(value="5") 5
+        .check-button.col-sm-12.col-md-3
+          .row
+            .col-md-12
+              input.bookbutton.btn.btn-primary.btn-lg(type="submit",value="Check Availability")  
+    #carousel-example-generic.carousel.slide(data-ride="carousel")
+      .carousel-inner
+        - var i=1
+        each slide in sld
+          .item(class=i === 1 ? "active" : "")
+            img(alt=slide.alt,src="/img/slide/"+slide.image)
+          - i++
+      a.left.carousel-control(href="#carousel-example-generic",data-slide="prev")
+        span.glyphicon.glyphicon-chevron-left
+      a.right.carousel-control(href="#carousel-example-generic",data-slide="next")
+        span.glyphicon.glyphicon-chevron-right
+          
+  .container#home-content
+    .row
+      .col-md-4.ul-home
+        h4 Special Offer
+        !{so}
+      .col-md-4.ul-home
+        h4 Hotel Review     
+        !{hr}
+      .col-md-4
+        h4 Social Media
+        <a class="twitter-timeline" href="https://twitter.com/cakrakusuma_25" data-widget-id="431308594202427392">Tweets by @cakrakusuma_25</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  script.
+    $('.carousel').carousel({
+      interval: 5000
+    })
+    $('#datetimepicker1').datetimepicker({startDate:moment(),pickTime: false,format: 'YYYY-MM-DD'});
+    $('#datetimepicker2').datetimepicker({startDate:moment(),pickTime: false,format: 'YYYY-MM-DD'});
+    $('.input-group.date').click(function(ev){      
+      $('body').animate({scrollTop: $('#reservation').position().top },'slow'); 
+      ev.preventDefault();
+      $(this).find('.glyphicon-calendar.glyphicon').click();
+    })
+    var formres='form.reserv';
+    $(formres).submit(function(){      
+      var start=$(formres).find('input[name="start"]').val();
+      var end=$(formres).find('input[name="end"]').val();
+      var adult=$(formres).find('select[name="adult"]').val();
+      var children=$(formres).find('select[name="children"]').val();      
+      var errortext='';
+      if(start===''){
+        errortext+='Start date must be filled\n';
+      }
+      if(end===''){
+        errortext+='Start end must be filled\n';
+      }
+      if(adult==0&&children==0){
+        errortext+='Adult and children quota must be filled\n';
+      }      
+      if(errortext===''){
+        return true;
+      }else{
+        alert(errortext);
+      }
+      return false;
+    })

@@ -1,0 +1,13 @@
+  <ul id="breadcrumb" class="row">
+    <li class="col-xs-4" ng-class="{ active: $state.includes('home') }">
+      <a ui-sref="home.roompick">
+        <span class="fa-stack fa-2x">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-stack-1x fa-inverse">1.</i>
+        </span>
+        <p>Choose your room and date</p>
+      </a>
+    </li>
+    <li class="col-xs-4" ng-class="{ active: $state.includes('guestdetail') }"><a ui-sref="guestdetail"><span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">2.</i></span><p>Place your reservation</p></a></li>
+    <li class="col-xs-4" ng-class="{ active: $state.includes('ticket') }"><a ui-sref="ticket"><span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-inverse">3.</i></span><p>Confirmation</p></a></li>    
+  </ul>

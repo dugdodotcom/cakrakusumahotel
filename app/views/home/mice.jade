@@ -1,0 +1,128 @@
+extends ../layouts/index
+
+block content  
+  #page-header
+    .container
+      .col-md-12
+        h1 MEETINGS & EVENTS
+  #content1.container
+    .col-md-8
+      .content-page      
+        .perpage          
+          h2.title MEETING ROOM CAPACITY
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th(rowspan="2") Meeting Room
+                th(colspan="5",style="text-align:center") Seating Style Capacity
+              tr
+                th Theater
+                th Classroom
+                th U-Shape
+                th Restaurant
+                th Square
+            tbody
+              tr 
+                td Melati
+                td 175
+                td 110
+                td 80
+                td 80
+                td 90
+              tr
+                td Melati I
+                td 60
+                td 40
+                td 40
+                td 50
+                td 40
+              tr
+                td Melati II
+                td 60
+                td 40
+                td 40
+                td 50
+                td 40                
+              tr
+                td Cempaka
+                td 175
+                td 110
+                td 80
+                td 80
+                td 90
+              tr
+                td Cempaka I
+                td 60
+                td 40
+                td 40
+                td 50
+                td 40
+              tr
+                td Cempaka II
+                td 60
+                td 40
+                td 40
+                td 50
+                td 40
+              tr
+                td Kusuma
+                td 60
+                td 40
+                td 35
+                td 30
+                td 35
+              tr
+                td Kenanga
+                td 10
+                td 8
+                td 6
+                td 6
+                td 8
+              tr
+                td Joglo Bougenville
+                td 200
+                td 100
+                td 100
+                td 120
+                td 150
+        .perpage         
+          h2.title MEETING PACKAGES
+          p(style="text-decoration:underline") HALFBOARD MEETING: (Rooms, breakfast, 2x coffee break, Lunch OR Dinner)          
+          ul
+            li
+              .row
+                .col-xs-3
+                  i.fa.fa-check 
+                  span Single Occupancy
+                .col-xs-9
+                  span.text3 : Rp.575.000,- nett/room/night    (1 room for 1 person)
+            li
+              .row
+                .col-xs-3
+                  i.fa.fa-check 
+                  span Double Occupancy
+                .col-xs-9
+                  span.text3 : Rp.710.000,- nett/room/night    (1 room for 2 persons)   
+          p(style="text-align:center") OR <strong>Rp.355.000,- nett/person.</strong>   
+          p(style="text-decoration:underline") FULLBOARD MEETING : (Rooms, breakfast, 2x coffee break, Lunch, Dinner)      
+          ul
+            li
+              .row
+                .col-xs-3
+                  i.fa.fa-check 
+                  span Single Occupancy
+                .col-xs-9
+                  span.text3 : Rp.640.000,- nett/room/night    (1 room for 1 person)
+            li
+              .row
+                .col-xs-3
+                  i.fa.fa-check 
+                  span Double Occupancy
+                .col-xs-9
+                  span.text3 : Rp. 840.000,- nett/room/night   (1 room for 2 person)
+          p(style="text-align:center") OR <strong>Rp.420.000,- nett/person.</strong>  
+          img(src="/img/gallery/meeting-room-cakra-kusuma-hotel.jpg",alt="accomodation facilities")
+                  
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+      

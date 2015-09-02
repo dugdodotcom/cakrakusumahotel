@@ -1,0 +1,130 @@
+extends ../layouts/index
+
+block content
+  #page-header
+    .container
+      .col-md-12
+        h1 CONTACT US FORM
+  #content1.container
+    .col-md-8
+      .content-page
+        h4=contact.position
+        p=contact.name
+        if (req.isAuthenticated())
+          ul.chat-stream
+            each chat in chats
+              li
+                if (chat.type===2)
+                  span.fa.fa-user
+                else
+                  span.fa.fa-briefcase
+                =chat.chat
+          table
+            tr
+              td
+                .chatsubmit
+                  .form-group
+                    label Subject
+                    input.form-control(type="text" name="subject")
+                  .form-group
+                    label Message
+                    input.form-control(type="text" name="chat")
+            
+                    
+        else
+          section.col-md-12
+            h4 Guest Details
+            section(data-ng-hide='global.authenticated')
+            p
+              | You can
+              a(href='javascript:showlogin()', ng-click='showlogin = ! showlogin') Login
+              | or fill registration form below to post a comment.
+            .form-login.col-md-12(ng-show='showlogin',style="display:none")
+              .col-md-6
+                form.row.ng-pristine.ng-valid(role='form', action='/users/session', method='post')
+                  input(type='hidden', name='url', value='http://localhost:3000/index.php/#!/')
+                  .form-group
+                  label(for='exampleInputEmail1') Email
+                  input#exampleInputEmail1.form-control(type='email', name='email', placeholder='Email', required='')
+                  .form-group
+                  label(for='exampleInputPassword1') Password
+                  input#exampleInputPassword1.form-control(type='password', name='password', placeholder='Password', required='')
+                  button.btn.btn-default Log In
+              .col-md-6
+                p Or Login with:
+                form.ng-pristine.ng-valid(method='post', action='/history/fb')
+                  input(type='hidden', name='url', value='http://localhost:3000/index.php/#!/')
+                  button(type='submit')
+                    img(src='/img/icons/facebook.png')
+            form.row.form-guest.ng-pristine.ng-invalid.ng-invalid-required(role='form', method="post",action="/submitnotregister")
+              input(type="hidden",name='level',value=contact.level)
+              input.ng-pristine.ng-valid(type='hidden', name='url', ng-model='url', value='http://localhost:3000/index.php/#!/')
+              .col-md-6
+                .form-group
+                label(for='exampleInputEmail1') Enter your Name*
+                input#exampleInputEmail1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='text', name='firstname', ng-model='data.firstname', placeholder='First Name', required='')
+                .form-group
+                label(for='exampleInputPassword1') Last Name*
+                input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='text', name='lastname', ng-model='data.lastname', placeholder='Last Name', required='')
+                .form-group(data-ng-hide='global.authenticated')
+                label(for='exampleInputPassword1') Username*
+                input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='text', name='username', ng-model='data.username', placeholder='Username', required='')
+              .col-md-6
+                .form-group
+                label(for='exampleInputPassword1') Email Address*
+                input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required.ng-valid-email(type='email', name='email', ng-model='data.email', placeholder='Email', required='')
+                .form-group(data-ng-hide='global.authenticated')
+                label(for='exampleInputPassword1') Password*
+                input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='password', name='password', ng-model='data.password', placeholder='Password', required='')
+                .form-group
+                label(for='exampleInputPassword1') Phone*
+                input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='text', name='phone', ng-model='data.phone', placeholder='Phone', required='')
+              .col-md-12
+                label(for='exampleInputPassword1') Address*
+                textarea.form-control.ng-pristine.ng-invalid.ng-invalid-required(name='address', ng-model='data.address', placeholder='Address', required='')
+              .col-md-12
+                label(for='exampleInputPassword1') Subject
+                input.form-control.ng-pristine.ng-valid(name="subject",type="text", placeholder='Subject')
+              .col-md-12
+                label(for='exampleInputPassword1') Comments
+                textarea.form-control.ng-pristine.ng-valid(name="chat",ng-model='data.specialrequest', placeholder='Fill your comments')
+              .col-md-12
+                .form-group
+                br
+                button.btn.btn-default(type='submit') Submit Comment
+              
+                  
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+  script.
+    function showlogin(){
+        $('.form-login').show();
+    }
+    function takeit(){
+      $(".chat-stream").scrollTop(jQuery(".chat-stream")[0].scrollHeight);
+    }
+    $(window).load(function(){
+      takeit();
+    })
+    $('input[name="url"]').val(document.URL);
+    takeit()
+    var data={
+    level:!{contact.level}
+    }
+    socket.emit('user',data);
+    $('.chatsubmit').on('keypress','input[name="chat"]',function(e){
+      if (e.which == 13) {
+        var data='subject='+$('input[name="subject"]').val()+'&chat='+$('input[name="chat"]').val()+'&level=!{contact.level}';
+        $.post('/contactsubmit',data,function(dat){
+          $('.chat-stream').append('<li><span class="fa fa-user"></span> '+dat.chat+'</li>');
+          socket.emit("userchatadd", {chat:dat.chat,level:dat.level,type:dat.type,user:dat.user});
+          $('input[name="subject"]').val('');
+          $('input[name="chat"]').val('');
+          takeit()
+        },"json");
+      }
+    });
+    socket.on('adminchattext',function(obj){
+      $('.chat-stream').append('<li><span class="fa fa-briefcase"></span> '+obj.chat+'</li>');
+      takeit();
+    });

@@ -1,0 +1,34 @@
+Usage: rhc setup 
+
+Connects to an OpenShift server to get you started. Will help you configure your
+SSH keys, set up a domain, and check for any potential problems with Git or SSH.
+
+Any options you pass to the setup command will be stored in a
+.openshift/express.conf file in your home directory. If you run setup at a later
+time, any previous configuration will be reused.
+
+Pass the --clean option to ignore your saved configuration and only use options
+you pass on the command line. Pass --config FILE to use default values from
+another config (the values will still be written to .openshift/express.conf).
+
+If the server supports authorization tokens, you may pass the --create-token
+option to instruct the wizard to generate a key for you.
+
+If you would like to enable tab-completion in Bash shells, pass --autocomplete
+for more information.
+
+
+Options
+  --server NAME             Hostname of an OpenShift server
+  --clean                   Ignore any saved configuration options
+  --[no-]create-token       Create an authorization token for this server
+  --autocomplete            Instructions for enabling tab-completion
+
+Global Options
+  -l, --rhlogin LOGIN       OpenShift login
+  -p, --password PASSWORD   OpenShift password
+  --token TOKEN             An authorization token for accessing your account.
+  --timeout SECONDS         The timeout for operations
+
+  See 'rhc help options' for a full list of global options.
+

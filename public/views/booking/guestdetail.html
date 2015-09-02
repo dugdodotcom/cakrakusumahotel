@@ -1,0 +1,116 @@
+<section data-ng-controller="IndexController">
+  <div id="page-header">
+    <div class="container">
+      <div class="col-md-12">
+        <h1>Reservation: Place your reservation</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <section  data-ng-include="'/views/booking/breadcrumb.html'" data-role="navigation"></section>
+    <div id="content" class="row" data-ng-init="choosedatago()">
+      <section id="contain" class="pull-right col-md-8 rooms">
+        <h4>Guest Details</h4>
+          <section data-ng-hide="global.authenticated">
+            <p>You can <a href="" ng-click="showlogin = ! showlogin">Login</a> or fill registration form below to book.</p>
+            <div ng-show="showlogin" class=" form-login col-md-12">
+              <div class="col-md-6">
+                <form role="form" class="row" action="/users/session" method="post">
+                  <input type="hidden" name="url" />
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
+                  </div>
+                  <button class="btn btn-default">Log In</button>
+                </form>
+              </div>
+              <div class="col-md-6">
+              <p>Or Login with:</p>
+              <form method="post" action="/history/fb">
+                <input type="hidden" name="url" />
+                <button type="submit"><img src="/img/icons/facebook.png"></button>
+              </form>
+              </div>
+            </div>
+          </section>
+        <form role="form" class="row form-guest" data-ng-init="guestdetail()" ng-submit="booking()" novalidate>
+          <input type="hidden" name="url" ng-model="url" />
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputEmail1">First Name*</label>
+              <input type="text" name="firstname" ng-model="data.firstname" class="form-control" id="exampleInputEmail1" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Last Name*</label>
+              <input type="text" name="lastname" ng-model="data.lastname" class="form-control" id="exampleInputPassword1" placeholder="Last Name" required>
+            </div>
+            <div class="form-group" data-ng-hide="global.authenticated">
+              <label for="exampleInputPassword1">Username*</label>
+              <input type="text" name="username" ng-model="data.username" class="form-control" id="exampleInputPassword1" placeholder="Username" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+             <div class="form-group">
+              <label for="exampleInputPassword1">Email Address*</label>
+              <input type="email" name="email" ng-model="data.email" class="form-control" id="exampleInputPassword1" placeholder="Email" required>
+            </div>
+             <div class="form-group" data-ng-hide="global.authenticated">
+              <label for="exampleInputPassword1">Password*</label>
+              <input type="password" name="password" ng-model="data.password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Phone*</label>
+              <input type="text" name="phone" ng-model="data.phone" class="form-control" id="exampleInputPassword1" placeholder="Phone" required>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="exampleInputPassword1">Address*</label>
+              <textarea name="address" class="form-control" ng-model="data.address" placeholder="Address" required></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="exampleInputPassword1">Special Request</label>
+              <textarea class="form-control" ng-model="data.specialrequest" placeholder="Special Reques"></textarea>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <br />
+              <button type="submit" class="btn btn-default">Book Now</button>
+            </div>
+          </div>
+        </form>
+      </section>
+      <div class="col-md-4 pull-left" id="reserv-left">
+        <h4>Your Reservation</h4>
+        <ul class="data-result">
+          <li>
+            <span class="desc">Check In:</span> {{choosedata.start}}
+          </li>
+          <li>
+            <span class="desc">Check Out:</span> {{choosedata.end}}
+          </li>
+          <li>
+            <span class="desc">Guests:</span><span ng-show="choosedata.adult!=0"> {{choosedata.adult}} adults</span><span ng-show="choosedata.children!=0"> {{choosedata.children}} childrens</span>
+          </li>
+        </ul>
+        <div ng-show="choosenroom" class="choosenroom">
+          <h4>Rooms</h4>
+          <ul>
+            <li ng-repeat="data in choosenroom">
+              <h4 class="title-style4">Reservation {{data.choose}} of {{choosedata.room}}<span class="title-block"></span></h4>
+              <p><span>Room:</span> {{data.name}}</p>
+              <p><span>Type:</span> {{data.type}}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>        
+	</div>
+</section>
+<script>
+  $('input[name="url"]').val(document.URL);
+</script>

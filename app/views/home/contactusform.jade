@@ -1,0 +1,73 @@
+extends ../layouts/index
+
+block content
+  #page-header
+    .container
+      .col-md-12
+        h1 CONTACT US FORM
+  #content1.container
+    .col-md-8
+      .content-page
+        h4=contact.position
+        p=contact.name
+        if contact.phone
+          p=contact.phone
+        if contact.email
+          p=contact.email
+        if contact.address
+          p=contact.address
+        form.row.form-guest.ng-pristine.ng-invalid.ng-invalid-required(role='form', method="post",action="/submitnotregister")
+          input(type="hidden",name='position',value=contact.position)
+          input(type="hidden",name='level',value=contact.level)
+          input.ng-pristine.ng-valid(type='hidden', name='url', ng-model='url', value='http://localhost:3000/index.php/#!/')
+          .form-group
+            label(for='exampleInputEmail1') Enter your Name*
+            input#exampleInputEmail1.form-control.ng-pristine.ng-invalid.ng-invalid-required(type='text', name='name', ng-model='data.firstname', placeholder='Full Name', required='')
+          .form-group
+            label(for='exampleInputPassword1') Email Address*
+            input#exampleInputPassword1.form-control.ng-pristine.ng-invalid.ng-invalid-required.ng-valid-email(type='email', name='email', ng-model='data.email', placeholder='Email', required='')
+          .form-group
+            label(for='exampleInputPassword1') Subject*
+            input.form-control.ng-pristine.ng-valid(name="subject",type="text", placeholder='Subject', required='')
+          .form-group
+            label(for='exampleInputPassword1') Enter your Message
+            textarea.form-control.ng-pristine.ng-valid(name="message",ng-model='data.specialrequest', placeholder='Enter your Message', required='')
+          .form-group
+            br
+            button.btn.btn-default(type='submit') Submit Comment
+              
+                  
+    .col-md-4.contactdetails
+      include ../includes/right-widget
+  script.
+    function showlogin(){
+        $('.form-login').show();
+    }
+    function takeit(){
+      $(".chat-stream").scrollTop(jQuery(".chat-stream")[0].scrollHeight);
+    }
+    $(window).load(function(){
+      takeit();
+    })
+    $('input[name="url"]').val(document.URL);
+    takeit()
+    var data={
+    level:!{contact.level}
+    }
+    socket.emit('user',data);
+    $('.chatsubmit').on('keypress','input[name="chat"]',function(e){
+      if (e.which == 13) {
+        var data='subject='+$('input[name="subject"]').val()+'&chat='+$('input[name="chat"]').val()+'&level=!{contact.level}';
+        $.post('/contactsubmit',data,function(dat){
+          $('.chat-stream').append('<li><span class="fa fa-user"></span> '+dat.chat+'</li>');
+          socket.emit("userchatadd", {chat:dat.chat,level:dat.level,type:dat.type,user:dat.user});
+          $('input[name="subject"]').val('');
+          $('input[name="chat"]').val('');
+          takeit()
+        },"json");
+      }
+    });
+    socket.on('adminchattext',function(obj){
+      $('.chat-stream').append('<li><span class="fa fa-briefcase"></span> '+obj.chat+'</li>');
+      takeit();
+    });

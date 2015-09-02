@@ -1,0 +1,28 @@
+<section data-ng-controller="BlogsController" data-ng-init="find()">
+  <h1><a href="#!/blogs/create">Create One</a></h1>
+  <div class="row">
+    <table class="table table-striped">
+        <thead>
+          <tr>        
+            <th>Title</th>
+            <th>publish</th>
+            <th>action</th>
+          </tr>
+        </thead>
+    <tbody>
+        <tr data-ng-repeat="blog in blogs   | orderBy:'-created'">
+          <td>{{blog.title}}</td>
+          <td><form ng-submit="action(blog._id,blog.publish,$index)"><button type="submit" class="btn btn-default" ng-show="blog.publish==0">unpublish</button><button type="submit" class="btn btn-success" ng-show="blog.publish==1">Published</button></form></td>
+          <td><a class="btn" href="#!/blogs/edit/{{blog._id}}">
+        	<i class="fa fa-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(blog._id,$index)">
+            <i class="fa fa-trash-o"></i>
+        </a>
+          </td>
+        </tr>      
+    </tbody>
+  </table>
+  <pagination total-items="totalItems" page="currentPage" on-select-page="setPage(page)"></pagination>
+  </div>
+</section>

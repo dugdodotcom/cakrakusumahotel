@@ -1,0 +1,47 @@
+<section data-ng-controller="BookingsController" data-ng-init="find()">
+ 
+  <table class="table table-striped">
+    <thead>
+      <tr>        
+        <th>User</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Adult</th>
+        <th>Children</th>
+        <th>Special Request</th>
+        <th>Rooms</th>
+        <th>Price</th>
+        <th>action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="booking in bookings   | orderBy:'-created'">
+        <td>{{booking.user.firstname}} {{booking.user.lastname}}<br />
+            {{booking.user.email}}<br />{{booking.user.address}}<br />
+            {{booking.user.phone}}
+        </td>
+        <td>{{booking.start | fromNow}}</td>
+        <td>{{booking.end | fromNow}}</td>
+        <td>{{booking.adult}}</td>
+        <td>{{booking.children}}</td>
+        <td>{{booking.specialrequest}}</td>
+        <td><table class="table table-striped">
+            <tr ng-repeat="book in booking.bookings">
+                <td>{{book.roomsId.name}}</td>
+                <td>{{book.roomsId.occupancy}}</td>
+                <td>{{book.type}}</td>
+                <td>IDR {{book.roomsId.price}} per night</td>
+            </tr>
+        </table></td>
+        <td>{{booking.price}} x {{booking.day}}
+        total: {{booking.total}}</td>
+        <td><a class="btn" data-ng-click="remove(booking._id,$index)">
+            <i class="fa fa-trash-o"></i>
+        </a>
+        <form ng-submit="action(booking._id,booking.action,$index)"><input type="hidden" ng-model="action" ng-value="booking.action" /><button type="submit" class="btn btn-default" ng-show="booking.action==1">pending</button><button type="submit" class="btn btn-warning" ng-show="booking.action==2">Done</button></form>
+        </td>
+      </tr>      
+    </tbody>
+  </table>	
+  <pagination total-items="totalItems" page="currentPage" on-select-page="setPage(page)"></pagination>
+</section>

@@ -1,0 +1,25 @@
+<h4>Choose Your Room {{choose}} of {{choosedata.room}}</h4>
+<ul class="chooseroom" data-ng-init="find()">
+  <li ng-repeat="room in rooms" >
+    <h5>{{room.name}}</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <img ng-src="/img/thumbs/{{room.image}}" class="image thumbnail" />
+      </div>
+      <div class="col-md-8 row">
+        <div class="col-md-6">
+          <p data-ng-hide="!room.occupancy"><span>Occupancy:</span> {{room.occupancy}}</p>
+          <p data-ng-hide="!room.view"><span>View:</span> {{room.view}}</p>  
+                            
+        </div>
+        <div class="col-md-6">
+          <p>IDR {{room.prices}} <span>/ Night</span></p>            
+        </div>
+        <div class="col-md-12">
+          <p><form class="pull-left" ng-repeat="type in room.type" data-ng-submit="addroom(choose,room._id,type.type,room.name)"><button type="submit" class="btn btn-primary" ng-show="type.available==1">Select {{type.type}}</button><span ng-show="type.available==2">{{type.type}}</span>&nbsp;&nbsp;</form></p>  
+        </div>
+      </div>
+      
+    </div>
+  </lI>
+</ul>

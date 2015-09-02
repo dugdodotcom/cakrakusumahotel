@@ -1,0 +1,66 @@
+<section data-ng-controller="RoomsController">
+	<h1>Create rooms</h1>
+	<form class="form-horizontal" role="form" data-ng-submit="create()">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="inputEmail3" placeholder="Name" ng-model="name" required>
+			</div>
+		</div>
+    <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+			<div class="col-sm-10">
+				<input type="number" class="form-control" id="inputEmail3" placeholder="Price" ng-model="price">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+			<div class="col-sm-10">
+				<input type="file" name="file" accept="image/*" ng-file-select="onFileSelect($files)">
+				<div class="progress progress-striped active" ng-hide="progress==0">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%">
+						<span class="sr-only">{{progress}}% Complete</span>
+					</div>
+				</div>
+				<div ng-show="image">
+					<img ng-show="image" ng-mode="image" ng-src="/img/thumbs/{{image}}" />
+					<input type="text" class="form-control" ng-model="rel" placeholder="rel" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">Occupancy</label>
+			<div class="col-sm-10">
+				<input type="number" class="form-control" id="inputEmail3" placeholder="Occupancy" ng-model="occupancy">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">Size</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="inputEmail3" placeholder="Size" ng-model="size">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">View</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="inputEmail3" placeholder="View" ng-model="view">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">Type</label>
+			<div class="col-sm-10">
+				<ul>
+					<li ng-repeat="type in myArray">
+						<input type="text" ng-model="type.type" >
+					</li>
+				</ul>
+				<button type="button" class="btn btn-default" ng-click="addType()">Add Type</button>
+			</div>
+		</div>
+		<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-success">Submit</button>
+		</div>
+		</div>
+	</form>
+</section>
